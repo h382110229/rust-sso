@@ -28,6 +28,8 @@ use jsonwebtoken::{Algorithm, DecodingKey, Header, TokenData, Validation, decode
 use serde::{Deserialize, Serialize};
 use tokio::sync::RwLock;
 use tracing::{debug, info, warn};
+#[allow(unused_imports)]
+use axum::http::header as _header_unused;
 
 // ──────────────────────────────────────────────────────────────────────────────
 // CF Access JWT Claims
@@ -67,6 +69,7 @@ pub struct CfAccessClaims {
 
 /// A single JWK from the Cloudflare JWKS endpoint.
 #[derive(Debug, Deserialize, Clone)]
+#[allow(dead_code)]
 struct CfJwk {
     /// Key ID
     pub kid: String,
@@ -90,14 +93,17 @@ struct CfJwkSet {
 // ──────────────────────────────────────────────────────────────────────────────
 
 /// How long to cache Cloudflare's public keys before re-fetching.
+#[allow(dead_code)]
 const CACHE_TTL: Duration = Duration::from_secs(60 * 60); // 1 hour
 
 #[derive(Clone)]
+#[allow(dead_code)]
 struct KeyCache {
     keys: Vec<CfJwk>,
     fetched_at: Instant,
 }
 
+#[allow(dead_code)]
 impl KeyCache {
     fn is_stale(&self) -> bool {
         self.fetched_at.elapsed() > CACHE_TTL
@@ -170,6 +176,7 @@ impl CfAccessValidator {
     ///
     /// Uses a read-lock optimistic path; only upgrades to a write-lock when the
     /// cache is missing or stale.
+    #[allow(dead_code)]
     async fn get_keys(&self) -> anyhow::Result<Vec<CfJwk>> {
         // Fast path: cache is warm and fresh.
         {
@@ -262,7 +269,8 @@ impl CfAccessValidator {
     }
 
     /// Find the [`DecodingKey`] for the given `kid`, re-fetching if not found.
-    async fn find_key(&self, token: &str, kid: &str) -> anyhow::Result<DecodingKey> {
+    #[allow(unused_variables)]
+    async fn find_key(&self, _token: &str, kid: &str) -> anyhow::Result<DecodingKey> {
         // Try from cache first.
         if let Some(key) = self.build_decoding_key_for_kid(kid).await? {
             return Ok(key);
@@ -316,7 +324,7 @@ impl CfAccessValidator {
 use axum::{
     async_trait,
     extract::FromRequestParts,
-    http::{request::Parts, StatusCode, header},
+    http::{request::Parts, StatusCode},
 };
 
 /// Axum extractor that validates the `Cf-Access-Jwt-Assertion` header.
@@ -329,6 +337,7 @@ use axum::{
 ///     Json(serde_json::json!({ "email": claims.email }))
 /// }
 /// ```
+#[allow(dead_code)]
 pub struct CfAccessUser(pub CfAccessClaims);
 
 #[async_trait]

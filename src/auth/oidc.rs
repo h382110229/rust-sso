@@ -1,3 +1,4 @@
+#![allow(dead_code, unused_imports)]
 //! OpenID Connect Provider implementation.
 //!
 //! Exposes four Axum route handlers ready to be mounted on a router:

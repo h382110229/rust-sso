@@ -1,3 +1,4 @@
+#![allow(dead_code, unused)]
 //! Email verification code flow.
 //!
 //! # Overview
@@ -43,7 +44,7 @@ use lettre::{
 use rand::Rng;
 use serde::{Deserialize, Serialize};
 use sqlx::SqlitePool;
-use tracing::{debug, info, warn};
+use tracing::{debug, info};
 
 // ──────────────────────────────────────────────────────────────────────────────
 // Configuration

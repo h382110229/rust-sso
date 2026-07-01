@@ -23,7 +23,7 @@ use jsonwebtoken::{
     Algorithm, DecodingKey, EncodingKey, Header, TokenData, Validation, decode, encode,
 };
 use rsa::{
-    BigUint, RsaPrivateKey, RsaPublicKey,
+    RsaPrivateKey, RsaPublicKey,
     pkcs8::{DecodePublicKey, EncodePrivateKey, EncodePublicKey},
     traits::PublicKeyParts,
 };
