@@ -1,0 +1,67 @@
+[package]
+name = "rust-sso"
+version = "0.1.0"
+edition = "2021"
+description = "A lightweight SSO authentication service with Cloudflare Access integration"
+license = "MIT"
+
+[dependencies]
+# Web framework
+axum = { version = "0.7", features = ["json", "macros"] }
+axum-extra = { version = "0.9", features = ["cookie"] }
+tower = "0.4"
+tower-http = { version = "0.5", features = ["cors", "trace"] }
+
+# Async runtime
+tokio = { version = "1", features = ["full"] }
+
+# Database
+sqlx = { version = "0.8", features = ["runtime-tokio", "sqlite"] }
+
+# Authentication
+jsonwebtoken = "9"
+uuid = { version = "1", features = ["v4"] }
+bcrypt = "0.15"
+
+# RSA key pair for JWT RS256
+rsa = { version = "0.9", features = ["pem"] }
+
+# Base64 encoding for JWKS
+base64 = "0.22"
+
+# HTTP client (for CF Access validation)
+reqwest = { version = "0.12", features = ["json", "rustls-tls"] }
+
+# Configuration loader
+config = "0.14"
+
+# Async trait support
+async-trait = "0.1"
+
+# Email
+lettre = { version = "0.11", features = ["tokio1-native-tls"] }
+
+# Serialization
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# Configuration
+dotenvy = "0.15"
+toml = "0.8"
+
+# Logging
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# Time
+chrono = { version = "0.4", features = ["serde"] }
+
+# Error handling
+anyhow = "1"
+thiserror = "1"
+
+# Random
+rand = "0.8"
+
+[dev-dependencies]
+axum-test = "16"
